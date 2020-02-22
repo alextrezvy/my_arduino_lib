@@ -8,7 +8,7 @@
 Beeper::Beeper(byte _pin) :
 		pin(_pin),
 		isBeeping(false),
-		currentLevel(low),
+		currentLevel(BL_LOW),
 		lastChange(0),
 		frequency(0),
 		period(0) {}
@@ -19,7 +19,7 @@ void Beeper::start(unsigned int _frequency, unsigned int _period) {
 	tone(pin, frequency);
 	lastChange = millis();
 	isBeeping = true;
-	currentLevel = high;
+	currentLevel = BL_HIGH;
 }
 
 void Beeper::stop() {
@@ -32,14 +32,14 @@ void Beeper::update() {
 	if (isBeeping) {
 		if (millis() > lastChange + period/2) {
 			switch (currentLevel) {
-			case low:
+			case BL_LOW:
 				tone(pin, frequency);
-				currentLevel = high;
+				currentLevel = BL_HIGH;
 				break;
-			case high:
+			case BL_HIGH:
 				noTone(pin);
 				pinMode(pin, INPUT);
-				currentLevel = low;
+				currentLevel = BL_LOW;
 				break;
 			}
 			lastChange += period/2;

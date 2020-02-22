@@ -47,19 +47,11 @@ void Clock::update() {
 		}
 		listener.notify();
 		lastChange += SECONDS*MILLIS;
-		#ifdef DEBUG
-			Serial.print("Clock::update: lastChange=");
-			Serial.println(lastChange);
-		#endif
 	}
 }
 
 void Clock::initialize(byte _hours, byte _minutes) {
-	hours = _hours;
-	minutes = _minutes;
+	hours = _hours < HOURS ? _hours : 0;
+	minutes = _minutes < MINUTES ? _minutes : 0;
 	lastChange = timestamp.getTimestamp();
-	#ifdef DEBUG
-		Serial.print("Clock::initialize: lastChange=");
-		Serial.println(lastChange);
-	#endif
 }

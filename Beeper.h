@@ -7,16 +7,16 @@
 #define BEEPER_H_
 #include <Arduino.h>
 
-enum Level {
-	low,
-	high
+enum BeeperLevel {
+	BL_LOW,
+	BL_HIGH
 };
 
 class Beeper {
 private:
 	byte pin;
 	bool isBeeping;
-	Level currentLevel;
+	BeeperLevel currentLevel;
 	unsigned long lastChange;
 	unsigned int frequency;
 	unsigned int period;

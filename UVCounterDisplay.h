@@ -13,8 +13,8 @@
 #include <Arduino.h>
 
 enum BlinkState {
-	off,
-	on
+	BS_OFF,
+	BS_ON
 };
 
 template<byte NOS, byte NOD>
@@ -48,7 +48,7 @@ public:
 		position = 0;
 		pinCathode = _pinCathode;
 		isBlinking = false;
-		blinkState = off;
+		blinkState = BS_OFF;
 		blinkPeriod = 0;
 		lastChange = 0;
 		pinMode(pinCathode, OUTPUT);
@@ -88,16 +88,16 @@ public:
 		} else {
 			if (millis() > lastChange + blinkPeriod/2) {
 				switch (blinkState) {
-				case off:
-					blinkState = on;
+				case BS_OFF:
+					blinkState = BS_ON;
 					break;
-				case on:
-					blinkState = off;
+				case BS_ON:
+					blinkState = BS_OFF;
 					break;
 				}
 				lastChange = millis();
 			}
-			showValue = blinkState == on ? true : false;
+			showValue = blinkState == BS_ON ? true : false;
 		}
 		if (showValue) {
 			byte symbol = DIGITS[currentDigits[position]];
@@ -116,7 +116,7 @@ public:
 
 	void blinkStart(const unsigned int period = 500) {
 		isBlinking = true;
-		blinkState = off;
+		blinkState = BS_OFF;
 		blinkPeriod = period;
 		lastChange = millis();
 	}
