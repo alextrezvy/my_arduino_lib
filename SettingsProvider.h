@@ -19,12 +19,12 @@ public:
 	SettingsProvider() : addrLastAvailable(EEPROM.length() - sizeof(T)) {
 		addrCurrent = addrLastAvailable + 1;
 	}
-	void load(T &data);
+	bool load(T &data);
 	void save(T &data);
 };
 
 template<class T>
-inline void SettingsProvider<T>::load(T &data) {
+inline bool SettingsProvider<T>::load(T &data) {
 	// looking for existing data
 	unsigned int addr;
 	for (addr = 0; addr <= addrLastAvailable; addr++) {
@@ -34,13 +34,10 @@ inline void SettingsProvider<T>::load(T &data) {
 	if (addr <= addrLastAvailable) {
 		EEPROM.get(addr, data);
 		addrCurrent = addr;
+		return true;
+	} else {
+		return false;
 	}
-	#ifdef DEBUG
-		Serial.print("Settings<T>::load: sizeof(T)=");
-		Serial.println(sizeof(T));
-		Serial.print("Settings<T>::load: addrCurrent=");
-		Serial.println(addrCurrent);
-	#endif
 }
 
 template<class T>

@@ -86,7 +86,7 @@ public:
 		if (!isBlinking) {
 			showValue = true;
 		} else {
-			if (millis() > lastChange + blinkPeriod/2) {
+			if (millis() - lastChange >= blinkPeriod/2) {
 				switch (blinkState) {
 				case BS_OFF:
 					blinkState = BS_ON;

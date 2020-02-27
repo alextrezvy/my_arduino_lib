@@ -30,7 +30,7 @@ void Beeper::stop() {
 
 void Beeper::update() {
 	if (isBeeping) {
-		if (millis() > lastChange + period/2) {
+		if (millis() - lastChange >= period/2) {
 			switch (currentLevel) {
 			case BL_LOW:
 				tone(pin, frequency);

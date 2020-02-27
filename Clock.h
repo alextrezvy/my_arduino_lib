@@ -20,10 +20,10 @@ private:
 	ClockListener &listener;
 
 public:
-	static const byte HOURS = 24;
-	static const byte MINUTES = 60;
-	static const byte SECONDS = 60;
-	static const unsigned long MILLIS = 1000UL;
+	static const unsigned long HOURS = 24;
+	static const unsigned long MINUTES = 60;
+	static const unsigned long SECONDS = 60;
+	static const unsigned long MILLIS = 1000;
 	Clock(TimestampProvider &tsp, ClockListener &listener);
 	void initialize(byte hours, byte minutes);
 	byte getHours() const;

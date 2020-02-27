@@ -36,7 +36,7 @@ void Clock::increaseMinutes() {
 }
 
 void Clock::update() {
-	if (timestamp.getTimestamp() >= (lastChange + SECONDS*MILLIS)) {
+	if (timestamp.getTimestamp() - lastChange >= SECONDS*MILLIS) {
 		++minutes;
 		if (minutes == MINUTES) {
 			minutes = 0;
